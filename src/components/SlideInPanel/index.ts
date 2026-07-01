@@ -1,0 +1,1 @@
+export { SlideInPanel } from './SlideInPanel'
