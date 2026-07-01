@@ -1,6 +1,6 @@
 # @ilabuporto/design-system
 
-Design system component library for U.Porto digital services.
+Design system component library for U.Porto digital iLab services.
 
 ## Quick Start
 
