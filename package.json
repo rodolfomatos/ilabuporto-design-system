@@ -6,7 +6,8 @@
   },
   "type": "module",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",

@@ -1,0 +1,1 @@
+{"version":3,"file":"index17.js","sources":["../src/tokens/spacing.ts"],"sourcesContent":["export const spacing = {\n  unit: 4,\n  values: [0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 64] as const,\n} as const\n"],"names":[],"mappings":"AAAO,MAAM,UAAU;AAAA,EACrB,MAAM;AAAA,EACN,QAAQ,CAAC,GAAG,GAAG,GAAG,IAAI,IAAI,IAAI,IAAI,IAAI,IAAI,IAAI,IAAI,IAAI,IAAI,EAAE;AAC9D;"}
