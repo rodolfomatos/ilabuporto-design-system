@@ -19,7 +19,7 @@ interface TableProps<T> {
   onSort?: (field: string) => void
 }
 
-export function Table<T extends { [key: string]: any }>({
+export function Table<T extends Record<string, unknown>>({
   columns,
   data,
   onRowClick,

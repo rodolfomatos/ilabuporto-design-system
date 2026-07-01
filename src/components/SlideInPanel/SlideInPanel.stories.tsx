@@ -12,20 +12,22 @@ const meta: Meta<typeof SlideInPanel> = {
 export default meta
 type Story = StoryObj<typeof SlideInPanel>
 
+function DefaultStory() {
+  const [open, setOpen] = useState(false)
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Open Panel</Button>
+      <SlideInPanel isOpen={open} onClose={() => setOpen(false)} title="User Profile">
+        <div className="space-y-4">
+          <p className="text-sm text-gray-500">Email: user@example.com</p>
+          <p className="text-sm text-gray-500">Role: Admin</p>
+          <p className="text-sm text-gray-500">Joined: Jan 2024</p>
+        </div>
+      </SlideInPanel>
+    </>
+  )
+}
+
 export const Default: Story = {
-  render: () => {
-    const [open, setOpen] = useState(false)
-    return (
-      <>
-        <Button onClick={() => setOpen(true)}>Open Panel</Button>
-        <SlideInPanel isOpen={open} onClose={() => setOpen(false)} title="User Profile">
-          <div className="space-y-4">
-            <p className="text-sm text-gray-500">Email: user@example.com</p>
-            <p className="text-sm text-gray-500">Role: Admin</p>
-            <p className="text-sm text-gray-500">Joined: Jan 2024</p>
-          </div>
-        </SlideInPanel>
-      </>
-    )
-  },
+  render: () => <DefaultStory />,
 }

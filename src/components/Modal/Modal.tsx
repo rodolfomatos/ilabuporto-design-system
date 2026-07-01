@@ -14,7 +14,7 @@ export function Modal({ isOpen, onClose, title, children, className }: ModalProp
 
   useEffect(() => {
     if (isOpen) {
-      setVisible(true)
+      requestAnimationFrame(() => setVisible(true))
     } else {
       const timer = setTimeout(() => setVisible(false), 200)
       return () => clearTimeout(timer)

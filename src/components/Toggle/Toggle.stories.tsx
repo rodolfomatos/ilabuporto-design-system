@@ -11,7 +11,7 @@ const meta: Meta<typeof Toggle> = {
 export default meta
 type Story = StoryObj<typeof Toggle>
 
-const ToggleWithState = (args: any) => {
+const ToggleWithState = (args: Record<string, unknown>) => {
   const [enabled, setEnabled] = useState(false)
   return <Toggle {...args} enabled={enabled} onChange={setEnabled} />
 }
