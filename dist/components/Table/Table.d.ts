@@ -15,6 +15,6 @@ interface TableProps<T> {
     sortOrder?: 'ASC' | 'DESC';
     onSort?: (field: string) => void;
 }
-export declare function Table<T extends Record<string, unknown>>({ columns, data, onRowClick, emptyMessage, sortField, sortOrder, onSort, }: TableProps<T>): import("react").JSX.Element;
+export declare function Table<T>({ columns, data, onRowClick, emptyMessage, sortField, sortOrder, onSort, }: TableProps<T>): import("react").JSX.Element;
 export {};
 //# sourceMappingURL=Table.d.ts.map

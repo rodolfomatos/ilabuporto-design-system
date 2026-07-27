@@ -19,7 +19,7 @@ interface TableProps<T> {
   onSort?: (field: string) => void
 }
 
-export function Table<T extends Record<string, unknown>>({
+export function Table<T>({
   columns,
   data,
   onRowClick,
@@ -62,13 +62,13 @@ export function Table<T extends Record<string, unknown>>({
           ) : (
             data.map((item, idx) => (
               <tr
-                key={(item.id as string) || idx}
+                key={(item as Record<string, unknown>).id as string || idx}
                 className={cn('hover:bg-gray-50 dark:hover:bg-gray-800/50', onRowClick && 'cursor-pointer')}
                 onClick={() => onRowClick?.(item)}
               >
                 {columns.map((col) => (
                   <td key={col.key} className={cn('px-4 py-3 text-sm', col.className)}>
-                    {col.render ? col.render(item) : String(item[col.key] ?? '-')}
+                    {col.render ? col.render(item) : String((item as Record<string, unknown>)[col.key] ?? '-')}
                   </td>
                 ))}
               </tr>

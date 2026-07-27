@@ -5,6 +5,7 @@ interface SidebarItem {
   key: string
   label: string
   icon?: string
+  renderIcon?: ReactNode
 }
 
 interface SidebarProps {
@@ -12,17 +13,20 @@ interface SidebarProps {
   activeKey: string
   onSelect: (key: string) => void
   header?: ReactNode
+  footer?: ReactNode
   className?: string
+  width?: string
   isOpen?: boolean
   onClose?: () => void
 }
 
-export function Sidebar({ items, activeKey, onSelect, header, className, isOpen = true, onClose }: SidebarProps) {
+export function Sidebar({ items, activeKey, onSelect, header, footer, className, width = 'w-56', isOpen = true, onClose }: SidebarProps) {
   return (
     <>
       <aside
         className={cn(
-          'fixed inset-y-0 left-0 z-40 w-56 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 transform transition-transform duration-200 ease-in-out md:relative md:translate-x-0',
+          'fixed inset-y-0 left-0 z-40 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 transform transition-transform duration-200 ease-in-out md:relative md:translate-x-0',
+          width,
           isOpen ? 'translate-x-0' : '-translate-x-full',
           className
         )}
@@ -39,7 +43,7 @@ export function Sidebar({ items, activeKey, onSelect, header, className, isOpen 
             )}
           </div>
         )}
-        <nav className="p-3 space-y-1">
+        <nav className="p-3 space-y-1 flex-1 overflow-y-auto">
           {items.map((item) => (
             <button
               key={item.key}
@@ -50,19 +54,26 @@ export function Sidebar({ items, activeKey, onSelect, header, className, isOpen 
               className={cn(
                 'w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors',
                 activeKey === item.key
-                  ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400'
+                  ? 'bg-brand-50 text-brand-600 dark:bg-brand-900/20 dark:text-brand-400'
                   : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
               )}
             >
-              {item.icon && (
+              {item.renderIcon ? (
+                <span className="w-5 h-5 flex-shrink-0">{item.renderIcon}</span>
+              ) : item.icon ? (
                 <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={item.icon} />
                 </svg>
-              )}
+              ) : null}
               {item.label}
             </button>
           ))}
         </nav>
+        {footer && (
+          <div className="border-t border-gray-200 dark:border-gray-800 p-3">
+            {footer}
+          </div>
+        )}
       </aside>
       {!isOpen && onClose && (
         <div className="fixed inset-0 bg-black/50 z-30 md:hidden" onClick={() => onClose?.()} />
