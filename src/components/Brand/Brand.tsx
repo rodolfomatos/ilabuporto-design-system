@@ -21,21 +21,25 @@ export function Brand({ name, hideSeparator = false, footer = false, className, 
       src="/assets/images/logo_updigital_h_black.png"
       className={cn(
         'w-auto brightness-0 invert',
-        footer ? 'h-8' : 'h-5 sm:h-7'
+        footer ? 'h-8 mb-4' : 'h-5 sm:h-7'
       )}
     />
   )
 
-  const inner = footer ? (
-    <div className={cn('flex flex-col', className)}>
-      {img}
-      {name && (
-        <p className="text-sm leading-relaxed text-white/70 dark:text-gray-400 mt-4">
-          {name}
-        </p>
-      )}
-    </div>
-  ) : (
+  if (footer) {
+    return (
+      <div className={className}>
+        {img}
+        {name && (
+          <p className="text-sm leading-relaxed text-white/70 dark:text-gray-400">
+            {name}
+          </p>
+        )}
+      </div>
+    )
+  }
+
+  return (
     <div className={cn('flex items-center min-w-0', className)}>
       {href ? <a href={href} className="flex items-center min-w-0">{img}</a> : img}
       {!hideSeparator && name && (
@@ -46,6 +50,4 @@ export function Brand({ name, hideSeparator = false, footer = false, className, 
       )}
     </div>
   )
-
-  return inner
 }
