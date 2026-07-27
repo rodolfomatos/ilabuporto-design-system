@@ -1,45 +1,31 @@
 "use strict";
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 const jsxRuntime = require("react/jsx-runtime");
+const cn = require("./index19.cjs");
 const react = require("react");
-const cn = require("./index18.cjs");
-function Modal({ isOpen, onClose, title, children, className }) {
-  const [visible, setVisible] = react.useState(false);
-  react.useEffect(() => {
-    if (isOpen) {
-      requestAnimationFrame(() => setVisible(true));
-    } else {
-      const timer = setTimeout(() => setVisible(false), 200);
-      return () => clearTimeout(timer);
-    }
-  }, [isOpen]);
-  react.useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isOpen]);
-  if (!visible) return null;
-  return /* @__PURE__ */ jsxRuntime.jsx("div", { className: cn.cn("fixed inset-0 z-50 overflow-y-auto", !isOpen && "opacity-0"), children: /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex min-h-full items-center justify-center p-4", children: [
-    /* @__PURE__ */ jsxRuntime.jsx("div", { className: "fixed inset-0 bg-black/50 transition-opacity", onClick: onClose }),
-    /* @__PURE__ */ jsxRuntime.jsxs(
-      "div",
-      {
-        className: cn.cn(
-          "relative w-full max-w-lg transform rounded-lg bg-white dark:bg-gray-900 p-6 shadow-xl transition-all",
-          className
-        ),
-        children: [
-          title && /* @__PURE__ */ jsxRuntime.jsx("h3", { className: "text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2", children: title }),
-          children
-        ]
-      }
-    )
-  ] }) });
-}
-exports.Modal = Modal;
+const Input = react.forwardRef(
+  ({ label, error, className, id, ...props }, ref) => {
+    const inputId = id || (label == null ? void 0 : label.toLowerCase().replace(/\s+/g, "-"));
+    return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "space-y-1", children: [
+      label && /* @__PURE__ */ jsxRuntime.jsx("label", { htmlFor: inputId, className: "block text-sm font-medium text-gray-700 dark:text-gray-300", children: label }),
+      /* @__PURE__ */ jsxRuntime.jsx(
+        "input",
+        {
+          ref,
+          id: inputId,
+          className: cn.cn(
+            "w-full px-3 py-2 border rounded-lg text-sm bg-white dark:bg-gray-800 dark:text-gray-100 transition-colors",
+            "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
+            error ? "border-red-500 dark:border-red-500" : "border-gray-300 dark:border-gray-700",
+            className
+          ),
+          ...props
+        }
+      ),
+      error && /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-xs text-red-600 dark:text-red-400", children: error })
+    ] });
+  }
+);
+Input.displayName = "Input";
+exports.Input = Input;
 //# sourceMappingURL=index7.cjs.map

@@ -1,6 +1,8 @@
 export { Button } from './components/Button';
 export type { ButtonProps } from './components/Button';
 export { Badge } from './components/Badge';
+export { Brand } from './components/Brand';
+export type { BrandProps } from './components/Brand';
 export { Card } from './components/Card';
 export { ConfirmDialog } from './components/ConfirmDialog';
 export { Input } from './components/Input';

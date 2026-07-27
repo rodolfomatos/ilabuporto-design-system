@@ -1,26 +1,28 @@
 "use strict";
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 const jsxRuntime = require("react/jsx-runtime");
-const cn = require("./index18.cjs");
-const variantBorderStyles = {
-  default: "border-gray-200 dark:border-gray-800",
-  success: "border-green-200 dark:border-green-800",
-  error: "border-red-200 dark:border-red-800",
-  warning: "border-yellow-200 dark:border-yellow-800"
-};
-function Card({ variant = "default", className, children, ...props }) {
-  return /* @__PURE__ */ jsxRuntime.jsx(
-    "div",
+const cn = require("./index19.cjs");
+function Brand({ name, hideSeparator = false, footer = false, className, href }) {
+  const img = /* @__PURE__ */ jsxRuntime.jsx(
+    "img",
     {
+      alt: "UPdigital",
+      src: "/assets/images/logo_updigital_h_black.png",
       className: cn.cn(
-        "bg-white dark:bg-gray-900 rounded-lg border p-4",
-        variantBorderStyles[variant],
-        className
-      ),
-      ...props,
-      children
+        "w-auto brightness-0 invert",
+        footer ? "h-8" : "h-5 sm:h-7"
+      )
     }
   );
+  const inner = footer ? /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn.cn("flex flex-col", className), children: [
+    img,
+    name && /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-sm leading-relaxed text-white/70 dark:text-gray-400 mt-4", children: name })
+  ] }) : /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn.cn("flex items-center min-w-0", className), children: [
+    href ? /* @__PURE__ */ jsxRuntime.jsx("a", { href, className: "flex items-center min-w-0", children: img }) : img,
+    !hideSeparator && name && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "mx-2 text-white/50", children: "|" }),
+    name && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "text-base sm:text-lg font-semibold truncate", children: name })
+  ] });
+  return inner;
 }
-exports.Card = Card;
+exports.Brand = Brand;
 //# sourceMappingURL=index4.cjs.map

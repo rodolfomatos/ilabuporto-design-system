@@ -1,42 +1,26 @@
 "use strict";
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 const jsxRuntime = require("react/jsx-runtime");
-const Modal = require("./index7.cjs");
-const Button = require("./index2.cjs");
-const buttonVariantMap = {
-  danger: "destructive",
-  warning: "primary",
-  info: "primary"
+const cn = require("./index19.cjs");
+const variantBorderStyles = {
+  default: "border-gray-200 dark:border-gray-800",
+  success: "border-green-200 dark:border-green-800",
+  error: "border-red-200 dark:border-red-800",
+  warning: "border-yellow-200 dark:border-yellow-800"
 };
-function ConfirmDialog({
-  isOpen,
-  title,
-  message,
-  confirmLabel = "Confirm",
-  cancelLabel = "Cancel",
-  onConfirm,
-  onCancel,
-  variant = "danger",
-  children
-}) {
-  return /* @__PURE__ */ jsxRuntime.jsxs(Modal.Modal, { isOpen, onClose: onCancel, title, children: [
-    /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-gray-600 dark:text-gray-400 mb-4", children: message }),
-    children,
-    /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end mt-6", children: [
-      /* @__PURE__ */ jsxRuntime.jsx(Button.Button, { variant: "secondary", onClick: onCancel, children: cancelLabel }),
-      /* @__PURE__ */ jsxRuntime.jsx(
-        Button.Button,
-        {
-          variant: buttonVariantMap[variant],
-          onClick: () => {
-            onConfirm();
-            onCancel();
-          },
-          children: confirmLabel
-        }
-      )
-    ] })
-  ] });
+function Card({ variant = "default", className, children, ...props }) {
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    "div",
+    {
+      className: cn.cn(
+        "bg-white dark:bg-gray-900 rounded-lg border p-4",
+        variantBorderStyles[variant],
+        className
+      ),
+      ...props,
+      children
+    }
+  );
 }
-exports.ConfirmDialog = ConfirmDialog;
+exports.Card = Card;
 //# sourceMappingURL=index5.cjs.map

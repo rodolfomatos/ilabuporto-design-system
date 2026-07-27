@@ -1,35 +1,20 @@
-import { jsxs, jsx } from "react/jsx-runtime";
-import { cn } from "./index18.js";
-function Toggle({ enabled, onChange, label, disabled }) {
-  return /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
-    /* @__PURE__ */ jsx(
-      "button",
-      {
-        type: "button",
-        role: "switch",
-        "aria-checked": enabled,
-        disabled,
-        onClick: () => onChange(!enabled),
-        className: cn(
-          "relative inline-flex h-6 w-11 flex-shrink-0 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900",
-          enabled ? "bg-blue-600" : "bg-gray-300 dark:bg-gray-700",
-          disabled && "opacity-50 cursor-not-allowed"
-        ),
-        children: /* @__PURE__ */ jsx(
-          "span",
-          {
-            className: cn(
-              "inline-block h-4 w-4 transform rounded-full bg-white transition-transform mt-1",
-              enabled ? "translate-x-6" : "translate-x-1"
-            )
-          }
-        )
-      }
-    ),
-    label && /* @__PURE__ */ jsx("span", { className: "text-sm text-gray-700 dark:text-gray-300", children: label })
-  ] });
+import { jsx } from "react/jsx-runtime";
+import { cn } from "./index19.js";
+function Tabs({ tabs, activeKey, onChange, className }) {
+  return /* @__PURE__ */ jsx("div", { className: cn("flex border-b border-gray-200 dark:border-gray-800", className), children: tabs.map((tab) => /* @__PURE__ */ jsx(
+    "button",
+    {
+      onClick: () => onChange(tab.key),
+      className: cn(
+        "px-4 py-3 text-sm font-medium border-b-2 transition-colors",
+        activeKey === tab.key ? "border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400" : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+      ),
+      children: tab.label
+    },
+    tab.key
+  )) });
 }
 export {
-  Toggle
+  Tabs
 };
 //# sourceMappingURL=index14.js.map

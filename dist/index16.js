@@ -1,25 +1,26 @@
-const typography = {
-  fontFamily: {
-    sans: ["Inter", "-apple-system", "BlinkMacSystemFont", '"Segoe UI"', "sans-serif"],
-    mono: ['"SF Mono"', '"Fira Code"', "monospace"]
+const colors = {
+  brand: "#009FDF",
+  brandLight: "#e0f7ff",
+  light: {
+    background: "#ffffff",
+    surface: "#f5f5f5",
+    border: "#e5e5e5",
+    text: "#171717",
+    muted: "#737373"
   },
-  fontSize: {
-    display: "32px",
-    h1: "24px",
-    h2: "20px",
-    body: "14px",
-    small: "12px",
-    mono: "13px"
+  dark: {
+    background: "#0a0a0a",
+    surface: "#171717",
+    border: "#262626",
+    text: "#fafafa",
+    muted: "#737373"
   },
-  fontWeight: {
-    display: 700,
-    h1: 600,
-    h2: 600,
-    body: 400,
-    small: 400
-  }
+  accent: "#22c55e",
+  destructive: "#ef4444",
+  warning: "#eab308",
+  info: "#3b82f6"
 };
 export {
-  typography
+  colors
 };
 //# sourceMappingURL=index16.js.map

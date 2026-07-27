@@ -1,8 +1,25 @@
-const spacing = {
-  unit: 4,
-  values: [0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 64]
+const typography = {
+  fontFamily: {
+    sans: ["Inter", "-apple-system", "BlinkMacSystemFont", '"Segoe UI"', "sans-serif"],
+    mono: ['"SF Mono"', '"Fira Code"', "monospace"]
+  },
+  fontSize: {
+    display: "32px",
+    h1: "24px",
+    h2: "20px",
+    body: "14px",
+    small: "12px",
+    mono: "13px"
+  },
+  fontWeight: {
+    display: 700,
+    h1: 600,
+    h2: 600,
+    body: 400,
+    small: 400
+  }
 };
 export {
-  spacing
+  typography
 };
 //# sourceMappingURL=index17.js.map

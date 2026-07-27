@@ -1,35 +1,20 @@
 "use strict";
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 const jsxRuntime = require("react/jsx-runtime");
-const cn = require("./index18.cjs");
-function Toggle({ enabled, onChange, label, disabled }) {
-  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center gap-3", children: [
-    /* @__PURE__ */ jsxRuntime.jsx(
-      "button",
-      {
-        type: "button",
-        role: "switch",
-        "aria-checked": enabled,
-        disabled,
-        onClick: () => onChange(!enabled),
-        className: cn.cn(
-          "relative inline-flex h-6 w-11 flex-shrink-0 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900",
-          enabled ? "bg-blue-600" : "bg-gray-300 dark:bg-gray-700",
-          disabled && "opacity-50 cursor-not-allowed"
-        ),
-        children: /* @__PURE__ */ jsxRuntime.jsx(
-          "span",
-          {
-            className: cn.cn(
-              "inline-block h-4 w-4 transform rounded-full bg-white transition-transform mt-1",
-              enabled ? "translate-x-6" : "translate-x-1"
-            )
-          }
-        )
-      }
-    ),
-    label && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "text-sm text-gray-700 dark:text-gray-300", children: label })
-  ] });
+const cn = require("./index19.cjs");
+function Tabs({ tabs, activeKey, onChange, className }) {
+  return /* @__PURE__ */ jsxRuntime.jsx("div", { className: cn.cn("flex border-b border-gray-200 dark:border-gray-800", className), children: tabs.map((tab) => /* @__PURE__ */ jsxRuntime.jsx(
+    "button",
+    {
+      onClick: () => onChange(tab.key),
+      className: cn.cn(
+        "px-4 py-3 text-sm font-medium border-b-2 transition-colors",
+        activeKey === tab.key ? "border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400" : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+      ),
+      children: tab.label
+    },
+    tab.key
+  )) });
 }
-exports.Toggle = Toggle;
+exports.Tabs = Tabs;
 //# sourceMappingURL=index14.cjs.map

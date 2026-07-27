@@ -1,44 +1,26 @@
 "use strict";
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 const jsxRuntime = require("react/jsx-runtime");
-const cn = require("./index18.cjs");
-function Table({
-  columns,
-  data,
-  onRowClick,
-  emptyMessage = "No results",
-  sortField,
-  sortOrder,
-  onSort
-}) {
-  return /* @__PURE__ */ jsxRuntime.jsx("div", { className: "bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 overflow-hidden", children: /* @__PURE__ */ jsxRuntime.jsxs("table", { className: "w-full", children: [
-    /* @__PURE__ */ jsxRuntime.jsx("thead", { className: "bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700", children: /* @__PURE__ */ jsxRuntime.jsx("tr", { children: columns.map((col) => /* @__PURE__ */ jsxRuntime.jsxs(
-      "th",
-      {
-        scope: "col",
-        className: cn.cn(
-          "text-left px-4 py-3 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider",
-          col.sortable && "cursor-pointer hover:text-gray-700 dark:hover:text-gray-200",
-          col.className
-        ),
-        onClick: () => col.sortable && (onSort == null ? void 0 : onSort(col.key)),
-        children: [
-          col.header,
-          col.sortable && sortField === col.key && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "ml-1", children: sortOrder === "ASC" ? "↑" : "↓" })
-        ]
-      },
-      col.key
-    )) }) }),
-    /* @__PURE__ */ jsxRuntime.jsx("tbody", { className: "divide-y divide-gray-200 dark:divide-gray-800", children: data.length === 0 ? /* @__PURE__ */ jsxRuntime.jsx("tr", { children: /* @__PURE__ */ jsxRuntime.jsx("td", { colSpan: columns.length, className: "px-4 py-8 text-center text-gray-500 dark:text-gray-400", children: emptyMessage }) }) : data.map((item, idx) => /* @__PURE__ */ jsxRuntime.jsx(
-      "tr",
-      {
-        className: cn.cn("hover:bg-gray-50 dark:hover:bg-gray-800/50", onRowClick && "cursor-pointer"),
-        onClick: () => onRowClick == null ? void 0 : onRowClick(item),
-        children: columns.map((col) => /* @__PURE__ */ jsxRuntime.jsx("td", { className: cn.cn("px-4 py-3 text-sm", col.className), children: col.render ? col.render(item) : String(item[col.key] ?? "-") }, col.key))
-      },
-      item.id || idx
-    )) })
-  ] }) });
+const cn = require("./index19.cjs");
+function SlideInPanel({ isOpen, onClose, title, children, className }) {
+  if (!isOpen) return null;
+  return /* @__PURE__ */ jsxRuntime.jsx("div", { className: "fixed inset-0 bg-black/50 z-40", onClick: onClose, children: /* @__PURE__ */ jsxRuntime.jsxs(
+    "div",
+    {
+      className: cn.cn(
+        "absolute right-0 top-0 h-full w-full max-w-lg bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-800 overflow-y-auto",
+        className
+      ),
+      onClick: (e) => e.stopPropagation(),
+      children: [
+        title && /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "sticky top-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-6 py-4 flex items-center justify-between z-10", children: [
+          /* @__PURE__ */ jsxRuntime.jsx("h2", { className: "text-lg font-semibold text-gray-900 dark:text-gray-100", children: title }),
+          /* @__PURE__ */ jsxRuntime.jsx("button", { onClick: onClose, className: "p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800", children: /* @__PURE__ */ jsxRuntime.jsx("svg", { className: "w-5 h-5", fill: "none", stroke: "currentColor", viewBox: "0 0 24 24", children: /* @__PURE__ */ jsxRuntime.jsx("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M6 18L18 6M6 6l12 12" }) }) })
+        ] }),
+        /* @__PURE__ */ jsxRuntime.jsx("div", { className: "p-6", children })
+      ]
+    }
+  ) });
 }
-exports.Table = Table;
+exports.SlideInPanel = SlideInPanel;
 //# sourceMappingURL=index12.cjs.map

@@ -1,42 +1,26 @@
-import { jsxs, jsx } from "react/jsx-runtime";
-import { Modal } from "./index7.js";
-import { Button } from "./index2.js";
-const buttonVariantMap = {
-  danger: "destructive",
-  warning: "primary",
-  info: "primary"
+import { jsx } from "react/jsx-runtime";
+import { cn } from "./index19.js";
+const variantBorderStyles = {
+  default: "border-gray-200 dark:border-gray-800",
+  success: "border-green-200 dark:border-green-800",
+  error: "border-red-200 dark:border-red-800",
+  warning: "border-yellow-200 dark:border-yellow-800"
 };
-function ConfirmDialog({
-  isOpen,
-  title,
-  message,
-  confirmLabel = "Confirm",
-  cancelLabel = "Cancel",
-  onConfirm,
-  onCancel,
-  variant = "danger",
-  children
-}) {
-  return /* @__PURE__ */ jsxs(Modal, { isOpen, onClose: onCancel, title, children: [
-    /* @__PURE__ */ jsx("p", { className: "text-gray-600 dark:text-gray-400 mb-4", children: message }),
-    children,
-    /* @__PURE__ */ jsxs("div", { className: "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end mt-6", children: [
-      /* @__PURE__ */ jsx(Button, { variant: "secondary", onClick: onCancel, children: cancelLabel }),
-      /* @__PURE__ */ jsx(
-        Button,
-        {
-          variant: buttonVariantMap[variant],
-          onClick: () => {
-            onConfirm();
-            onCancel();
-          },
-          children: confirmLabel
-        }
-      )
-    ] })
-  ] });
+function Card({ variant = "default", className, children, ...props }) {
+  return /* @__PURE__ */ jsx(
+    "div",
+    {
+      className: cn(
+        "bg-white dark:bg-gray-900 rounded-lg border p-4",
+        variantBorderStyles[variant],
+        className
+      ),
+      ...props,
+      children
+    }
+  );
 }
 export {
-  ConfirmDialog
+  Card
 };
 //# sourceMappingURL=index5.js.map
