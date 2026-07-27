@@ -1,6 +1,7 @@
+import { ReactNode } from 'react';
 export interface BrandProps {
     /** App name displayed next to the logo */
-    name?: string;
+    name?: ReactNode;
     /** Hide the separator between logo and name */
     hideSeparator?: boolean;
     /** Use footer sizing (larger logo, block layout) */
