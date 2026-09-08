@@ -1,11 +1,12 @@
 import { jsx, jsxs } from "react/jsx-runtime";
-import { cn } from "./index19.js";
+import { cn } from "./index24.js";
+import { LOGO_UP_DIGITAL } from "./index5.js";
 function Brand({ name, hideSeparator = false, footer = false, className, href }) {
   const img = /* @__PURE__ */ jsx(
     "img",
     {
       alt: "UPdigital",
-      src: "/assets/images/logo_updigital_h_black.png",
+      src: LOGO_UP_DIGITAL,
       className: cn(
         "w-auto brightness-0 invert",
         footer ? "h-8 mb-4" : "h-5 sm:h-7"

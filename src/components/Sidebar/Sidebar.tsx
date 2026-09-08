@@ -1,14 +1,15 @@
 import { cn } from '../../cn'
 import { ReactNode } from 'react'
 
-interface SidebarItem {
+export interface SidebarItem {
   key: string
   label: string
   icon?: string
   renderIcon?: ReactNode
+  badge?: number
 }
 
-interface SidebarProps {
+export interface SidebarProps {
   items: SidebarItem[]
   activeKey: string
   onSelect: (key: string) => void
@@ -66,6 +67,11 @@ export function Sidebar({ items, activeKey, onSelect, header, footer, className,
                 </svg>
               ) : null}
               {item.label}
+              {item.badge !== undefined && item.badge > 0 && (
+                <span className="ml-auto px-2 py-0.5 text-xs font-medium text-white bg-red-600 dark:bg-red-500 rounded-full">
+                  {item.badge}
+                </span>
+              )}
             </button>
           ))}
         </nav>
@@ -75,8 +81,8 @@ export function Sidebar({ items, activeKey, onSelect, header, footer, className,
           </div>
         )}
       </aside>
-      {!isOpen && onClose && (
-        <div className="fixed inset-0 bg-black/50 z-30 md:hidden" onClick={() => onClose?.()} />
+      {isOpen && onClose && (
+        <div className="fixed inset-0 bg-black/50 z-30 md:hidden" onClick={() => onClose()} />
       )}
     </>
   )

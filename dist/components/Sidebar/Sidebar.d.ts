@@ -1,11 +1,12 @@
 import { ReactNode } from 'react';
-interface SidebarItem {
+export interface SidebarItem {
     key: string;
     label: string;
     icon?: string;
     renderIcon?: ReactNode;
+    badge?: number;
 }
-interface SidebarProps {
+export interface SidebarProps {
     items: SidebarItem[];
     activeKey: string;
     onSelect: (key: string) => void;
@@ -17,5 +18,4 @@ interface SidebarProps {
     onClose?: () => void;
 }
 export declare function Sidebar({ items, activeKey, onSelect, header, footer, className, width, isOpen, onClose }: SidebarProps): import("react").JSX.Element;
-export {};
 //# sourceMappingURL=Sidebar.d.ts.map

@@ -1,4 +1,5 @@
 import { cn } from '../../cn'
+import { LOGO_UP_DIGITAL } from '../../assets'
 import { ReactNode } from 'react'
 
 export interface BrandProps {
@@ -18,7 +19,7 @@ export function Brand({ name, hideSeparator = false, footer = false, className, 
   const img = (
     <img
       alt="UPdigital"
-      src="/assets/images/logo_updigital_h_black.png"
+      src={LOGO_UP_DIGITAL}
       className={cn(
         'w-auto brightness-0 invert',
         footer ? 'h-8 mb-4' : 'h-5 sm:h-7'

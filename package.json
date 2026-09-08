@@ -22,8 +22,7 @@
   },
   "scripts": {
     "dev": "vite build --watch",
-    "build": "vite build && tsc --emitDeclarationOnly -p tsconfig.build.json",
-    "postbuild": "cp src/styles/globals.css dist/styles.css",
+"build": "vite build && tailwindcss -i ./src/styles/globals.css -o ./dist/styles.css --minify && tsc --emitDeclarationOnly -p tsconfig.build.json",
     "lint": "eslint src/ --ext .ts,.tsx",
     "typecheck": "tsc --noEmit -p tsconfig.build.json",
     "storybook": "storybook dev -p 6006",

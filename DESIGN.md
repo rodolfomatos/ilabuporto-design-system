@@ -128,6 +128,40 @@ components:
       onChange: function
       label: string
       disabled: boolean
+  Logo:
+    description: UPdigital brand logo (PNG bundled as data URI, default white-on-brand)
+    props:
+      src: string
+      alt: string
+      invert: boolean
+  Navbar:
+    description: Sticky brand navbar (logo, title, language/theme toggles, user menu)
+    props:
+      title: node
+      logo: node
+      backgroundColor: string
+      children: node
+  Footer:
+    description: U.Porto footer with configurable columns
+    props:
+      logo: node
+      columns: array
+      copyright: node
+  AppShell:
+    description: Admin dashboard layout (responsive sidebar + content + mobile hamburger)
+    props:
+      items: array
+      activeKey: string
+      onSelect: function
+      title: node
+      subtitle: node
+      sidebarHeader: node
+  StatCard:
+    description: KPI card with label, value and variant color
+    props:
+      label: node
+      value: node
+      variant: [default, success, error, warning]
 do:
   - Use the defined colour palette consistently
   - Follow the 4px spacing system
@@ -146,7 +180,7 @@ breakingChanges:
   - none: first release
 ---
 
-# @ilabuporto/design-system
+# ilabuporto-design-system
 
 Design system for U.Porto digital services. Built with React 18, TypeScript, and Tailwind CSS 3.
 
@@ -160,12 +194,12 @@ Design system for U.Porto digital services. Built with React 18, TypeScript, and
 ## Usage
 
 ```bash
-npm install @ilabuporto/design-system
+npm install ilabuporto-design-system
 ```
 
 ```tsx
-import { Button, colors } from '@ilabuporto/design-system'
-import '@ilabuporto/design-system/styles.css'
+import { Button, colors } from 'ilabuporto-design-system'
+import 'ilabuporto-design-system/styles.css'
 
 function App() {
   return <Button variant="primary" size="md">Submit</Button>
@@ -174,17 +208,22 @@ function App() {
 
 ## Tailwind Integration
 
-Add this package's source to your Tailwind `content` array:
+The package ships precompiled CSS (`ilabuporto-design-system/styles.css`) — no
+Tailwind config required for most consumers. If you use Tailwind JIT with custom
+config, add the package's dist to your `content` array:
 
 ```js
 // tailwind.config.js
 module.exports = {
   content: [
     './src/**/*.{ts,tsx}',
-    './node_modules/@ilabuporto/design-system/src/**/*.{ts,tsx}',
+    './node_modules/ilabuporto-design-system/dist/**/*.{js,jsx}',
   ],
 }
 ```
+
+> Note: previously this pointed to `src/**` which is not shipped in the npm
+> package (only `dist/` is published). Use `dist/` or the precompiled CSS.
 
 ## Components
 
@@ -198,11 +237,16 @@ module.exports = {
 | Select | label, error states | stable |
 | Modal | animated overlay | stable |
 | Pagination | controlled page/total/limit | stable |
-| Sidebar | responsive, mobile overlay | stable |
+| Sidebar | responsive, mobile overlay, badge support | stable |
 | SlideInPanel | right-side panel | stable |
 | Table | generic, sortable, row click | stable |
 | Tabs | underline indicator | stable |
 | Toggle | switch with label | stable |
+| Logo | bundled UPdigital brand (data URI) | stable |
+| Navbar | sticky brand bar (logo, title, toggles, menu) | stable |
+| Footer | U.Porto footer (configurable columns) | stable |
+| AppShell | admin layout (sidebar + content) | stable |
+| StatCard | KPI / metric card | stable |
 
 ## Development
 
