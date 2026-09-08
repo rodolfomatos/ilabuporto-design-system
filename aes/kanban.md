@@ -13,7 +13,7 @@ current_ticket: "T003"
 |----|-------|--------|
 | T001 | Rename package scope and publish to npm | done |
 | T002 | Component audit and hardening | done |
-| T003 | Layout & branding components (Navbar, Footer, AppShell, Logo, StatCard) | done |
+| T003 | Layout & branding components (Navbar, Footer, AppShell, Brand, StatCard) | done |
 
 ## Backlog
 

@@ -128,12 +128,14 @@ components:
       onChange: function
       label: string
       disabled: boolean
-  Logo:
-    description: UPdigital brand logo (PNG bundled as data URI, default white-on-brand)
+  Brand:
+    description: UPdigital brand (PNG bundled as data URI, name separator, navbar/footer)
     props:
-      src: string
-      alt: string
-      invert: boolean
+      name: node
+      hideSeparator: boolean
+      footer: boolean
+      className: string
+      href: string
   Navbar:
     description: Sticky brand navbar (logo, title, language/theme toggles, user menu)
     props:
@@ -242,7 +244,7 @@ module.exports = {
 | Table | generic, sortable, row click | stable |
 | Tabs | underline indicator | stable |
 | Toggle | switch with label | stable |
-| Logo | bundled UPdigital brand (data URI) | stable |
+| Brand | UPdigital brand (data URI + name separator, navbar/footer) | stable |
 | Navbar | sticky brand bar (logo, title, toggles, menu) | stable |
 | Footer | U.Porto footer (configurable columns) | stable |
 | AppShell | admin layout (sidebar + content) | stable |

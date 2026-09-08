@@ -12,7 +12,7 @@ status: done
 |------|--------|
 | `src/assets/logo_updigital_h_black.png` | UPdigital logo copied from pdftools project |
 | `src/assets/index.ts` | Generated base64 data URI export `LOGO_UP_DIGITAL` (~9.7KB) |
-| `src/components/Logo/{Logo.tsx,index.ts,stories}` | Brand logo component (invert filter default white-on-brand) |
+| `src/components/Brand/Brand.tsx` | Adopted remote `Brand` component; replaced asset-path `src` with bundled data URI (asset path breaks npm consumers) |
 | `src/components/Navbar/{Navbar.tsx,index.ts,stories}` | Sticky brand navbar + `LanguageToggle`, `ThemeToggle`, `NavbarMenu` helpers |
 | `src/components/Footer/{Footer.tsx,index.ts,stories}` | U.Porto footer with configurable columns |
 | `src/components/Sidebar/Sidebar.tsx` | Added `badge` per item; **fixed overlay bug** (`!isOpen && onClose` → `isOpen && onClose`) |
@@ -39,7 +39,7 @@ were absent, and the npm packaging had three showstopper bugs.
 
 ## Remaining risks
 
-- Logo data URI: +9.7KB base64 in the bundle (acceptable; guarantees "works at
+- Brand logo data URI: +9.7KB base64 in the bundle (acceptable; guarantees "works at
   first use" in any bundler). Alternative if needed later: emit PNG + asset
   resolution, at the cost of consumer-side config.
 - Framework-agnostic Navbar uses plain `<a href>` and raw `<img>`; consumers in

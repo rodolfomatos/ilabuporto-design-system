@@ -1,6 +1,6 @@
 ---
 ticket: T003
-title: Layout & branding components (Navbar, Footer, AppShell, Logo, StatCard)
+title: Layout & branding components (Navbar, Footer, AppShell, Brand, StatCard)
 sprint: sprint-01
 priority: high
 status: done
