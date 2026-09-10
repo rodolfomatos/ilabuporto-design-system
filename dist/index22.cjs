@@ -1,25 +1,16 @@
 "use strict";
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
-const typography = {
-  fontFamily: {
-    sans: ["Inter", "-apple-system", "BlinkMacSystemFont", '"Segoe UI"', "sans-serif"],
-    mono: ['"SF Mono"', '"Fira Code"', "monospace"]
-  },
-  fontSize: {
-    display: "32px",
-    h1: "24px",
-    h2: "20px",
-    body: "14px",
-    small: "12px",
-    mono: "13px"
-  },
-  fontWeight: {
-    display: 700,
-    h1: 600,
-    h2: 600,
-    body: 400,
-    small: 400
-  }
-};
-exports.typography = typography;
+const jsxRuntime = require("react/jsx-runtime");
+const cn = require("./index30.cjs");
+const Card = require("./index6.cjs");
+function ChartCard({ title, subtitle, className, children }) {
+  return /* @__PURE__ */ jsxRuntime.jsxs(Card.Card, { className: cn.cn(className), children: [
+    (title || subtitle) && /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "mb-4 space-y-0.5", children: [
+      title && /* @__PURE__ */ jsxRuntime.jsx("h3", { className: "text-base font-semibold text-gray-900 dark:text-white", children: title }),
+      subtitle && /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-sm text-gray-500 dark:text-gray-400", children: subtitle })
+    ] }),
+    children
+  ] });
+}
+exports.ChartCard = ChartCard;
 //# sourceMappingURL=index22.cjs.map

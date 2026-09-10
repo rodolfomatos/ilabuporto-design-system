@@ -1,26 +1,39 @@
 "use strict";
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
-const colors = {
-  brand: "#009FDF",
-  brandLight: "#e0f7ff",
-  light: {
-    background: "#ffffff",
-    surface: "#f5f5f5",
-    border: "#e5e5e5",
-    text: "#171717",
-    muted: "#737373"
-  },
-  dark: {
-    background: "#0a0a0a",
-    surface: "#171717",
-    border: "#262626",
-    text: "#fafafa",
-    muted: "#737373"
-  },
-  accent: "#22c55e",
-  destructive: "#ef4444",
-  warning: "#eab308",
-  info: "#3b82f6"
-};
-exports.colors = colors;
+const jsxRuntime = require("react/jsx-runtime");
+const react = require("react");
+const ThemeContext = react.createContext(void 0);
+const listeners = /* @__PURE__ */ new Set();
+let cachedDark = false;
+let observer = null;
+const isDark = () => typeof document !== "undefined" && document.documentElement.classList.contains("dark");
+const getSnapshot = () => cachedDark;
+function subscribe(callback) {
+  cachedDark = isDark();
+  if (!observer) {
+    observer = new MutationObserver(() => {
+      const next = isDark();
+      if (next !== cachedDark) {
+        cachedDark = next;
+        listeners.forEach((l) => l());
+      }
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"]
+    });
+  }
+  listeners.add(callback);
+  return () => listeners.delete(callback);
+}
+function ThemeProvider({ children }) {
+  const dark = react.useSyncExternalStore(subscribe, getSnapshot, () => false);
+  return /* @__PURE__ */ jsxRuntime.jsx(ThemeContext.Provider, { value: { dark }, children });
+}
+function useTheme() {
+  const ctx = react.useContext(ThemeContext);
+  return ctx ?? { dark: false };
+}
+exports.ThemeProvider = ThemeProvider;
+exports.useTheme = useTheme;
 //# sourceMappingURL=index21.cjs.map

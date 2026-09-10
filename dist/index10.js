@@ -1,5 +1,5 @@
 import { jsxs, jsx } from "react/jsx-runtime";
-import { cn } from "./index24.js";
+import { cn } from "./index30.js";
 function Pagination({ page, total, limit, onPageChange }) {
   const totalPages = Math.ceil(total / limit);
   if (totalPages <= 1) return null;

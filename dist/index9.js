@@ -1,6 +1,6 @@
 import { jsx, jsxs } from "react/jsx-runtime";
 import { useState, useEffect } from "react";
-import { cn } from "./index24.js";
+import { cn } from "./index30.js";
 function Modal({ isOpen, onClose, title, children, className }) {
   const [visible, setVisible] = useState(false);
   useEffect(() => {

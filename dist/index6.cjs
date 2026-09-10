@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 const jsxRuntime = require("react/jsx-runtime");
-const cn = require("./index24.cjs");
+const cn = require("./index30.cjs");
 const variantBorderStyles = {
   default: "border-gray-200 dark:border-gray-800",
   success: "border-green-200 dark:border-green-800",

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 const jsxRuntime = require("react/jsx-runtime");
 const react = require("react");
-const cn = require("./index24.cjs");
+const cn = require("./index30.cjs");
 function Modal({ isOpen, onClose, title, children, className }) {
   const [visible, setVisible] = react.useState(false);
   react.useEffect(() => {

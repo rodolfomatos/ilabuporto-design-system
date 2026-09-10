@@ -1,5 +1,5 @@
 import { jsx } from "react/jsx-runtime";
-import { cn } from "./index24.js";
+import { cn } from "./index30.js";
 function Tabs({ tabs, activeKey, onChange, className }) {
   return /* @__PURE__ */ jsx("div", { className: cn("flex border-b border-gray-200 dark:border-gray-800", className), children: tabs.map((tab) => /* @__PURE__ */ jsx(
     "button",

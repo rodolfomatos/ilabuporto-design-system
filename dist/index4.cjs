@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 const jsxRuntime = require("react/jsx-runtime");
-const cn = require("./index24.cjs");
+const cn = require("./index30.cjs");
 const index = require("./index5.cjs");
 function Brand({ name, hideSeparator = false, footer = false, className, href }) {
   const img = /* @__PURE__ */ jsxRuntime.jsx(

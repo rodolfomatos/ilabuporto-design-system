@@ -1,5 +1,5 @@
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
-import { cn } from "./index24.js";
+import { cn } from "./index30.js";
 import { LOGO_UP_DIGITAL } from "./index5.js";
 function Footer({ logo, columns, copyright, className }) {
   const currentYear = (/* @__PURE__ */ new Date()).getFullYear();

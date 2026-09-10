@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 const jsxRuntime = require("react/jsx-runtime");
-const cn = require("./index24.cjs");
+const cn = require("./index30.cjs");
 function Pagination({ page, total, limit, onPageChange }) {
   const totalPages = Math.ceil(total / limit);
   if (totalPages <= 1) return null;

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 const jsxRuntime = require("react/jsx-runtime");
-const cn = require("./index24.cjs");
+const cn = require("./index30.cjs");
 const index = require("./index5.cjs");
 function Footer({ logo, columns, copyright, className }) {
   const currentYear = (/* @__PURE__ */ new Date()).getFullYear();

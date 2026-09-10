@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 const jsxRuntime = require("react/jsx-runtime");
-const cn = require("./index24.cjs");
+const cn = require("./index30.cjs");
 function Sidebar({ items, activeKey, onSelect, header, footer, className, width = "w-56", isOpen = true, onClose }) {
   return /* @__PURE__ */ jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [
     /* @__PURE__ */ jsxRuntime.jsxs(

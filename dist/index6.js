@@ -1,5 +1,5 @@
 import { jsx } from "react/jsx-runtime";
-import { cn } from "./index24.js";
+import { cn } from "./index30.js";
 const variantBorderStyles = {
   default: "border-gray-200 dark:border-gray-800",
   success: "border-green-200 dark:border-green-800",

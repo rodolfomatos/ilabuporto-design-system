@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 const jsxRuntime = require("react/jsx-runtime");
-const cn = require("./index24.cjs");
+const cn = require("./index30.cjs");
 function Tabs({ tabs, activeKey, onChange, className }) {
   return /* @__PURE__ */ jsxRuntime.jsx("div", { className: cn.cn("flex border-b border-gray-200 dark:border-gray-800", className), children: tabs.map((tab) => /* @__PURE__ */ jsxRuntime.jsx(
     "button",
