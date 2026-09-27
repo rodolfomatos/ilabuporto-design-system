@@ -249,6 +249,7 @@ module.exports = {
 | Footer | U.Porto footer (configurable columns) | stable |
 | AppShell | admin layout (sidebar + content) | stable |
 | StatCard | KPI / metric card | stable |
+| Toast | info, success, warning, error (+ `ToastProvider`, `useToast`) | new — untested, see T004 |
 
 ## Development
 

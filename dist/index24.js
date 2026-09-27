@@ -1,7 +1,7 @@
 import { jsx, jsxs } from "react/jsx-runtime";
 import { ResponsiveContainer, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Bar } from "recharts";
 import { useTheme } from "./index21.js";
-import { chartPalette } from "./index31.js";
+import { chartPalette } from "./index32.js";
 function TopToolsChart({
   data,
   labelOf,
