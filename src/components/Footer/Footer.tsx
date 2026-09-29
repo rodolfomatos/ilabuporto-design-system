@@ -32,7 +32,7 @@ export function Footer({ logo, columns, copyright, className }: FooterProps) {
         className
       )}
     >
-      <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 py-10 sm:py-14">
+      <div className="px-2 sm:px-4 lg:px-6 py-10 sm:py-14">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           <div className="sm:col-span-2 lg:col-span-1">
             {logo ?? <img src={LOGO_UP_DIGITAL} alt="UPdigital" className="h-8 w-auto mb-4 brightness-0 invert" width={601} height={115} />}

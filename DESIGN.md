@@ -142,6 +142,7 @@ components:
       title: node
       logo: node
       backgroundColor: string
+      darkBackgroundColor: string
       children: node
   Footer:
     description: U.Porto footer with configurable columns
@@ -249,6 +250,32 @@ module.exports = {
 | Footer | U.Porto footer (configurable columns) | stable |
 | AppShell | admin layout (sidebar + content) | stable |
 | StatCard | KPI / metric card | stable |
+
+### Navbar and Footer backgrounds
+
+The `Navbar` takes the `Footer`'s dark background, so the two bands read as one
+surface in dark mode:
+
+| Theme | Navbar | Footer |
+|-------|--------|--------|
+| light | brand `#009FDF` (`backgroundColor` prop) | `bg-black` |
+| dark | `dark:bg-gray-950` — **the same utility class the `Footer` uses** | `dark:bg-gray-950` |
+
+Two consequences worth knowing before changing this:
+
+1. **The Navbar's light colour is a CSS custom property (`--gs-nav-bg`), not
+   `style={{ backgroundColor }}`.** An inline style beats every class, so with
+   the colour on `background-color` the `dark:` variant was silently inert and
+   the navbar stayed brand blue in dark mode. It has to be a variable for
+   `dark:bg-gray-950` to win on specificity. `darkBackgroundColor` exists for
+   the case where a consumer must opt out of the footer's colour; it swaps the
+   class rather than adding one, because two competing `dark:` classes would
+   make the winner depend on CSS output order.
+2. **Neither band caps its width at `max-w-7xl` any more.** The cap is inert
+   below 1281px (there `max-w-7xl` equals the viewport) but added 320px of
+   margin per side at 1920px, and the navbar and footer stopped lining up.
+   Both now use the same `px-2 sm:px-4 lg:px-6` padding and start at the same
+   pixel. Drop the cap only from one of them and the misalignment returns.
 
 ## Development
 
