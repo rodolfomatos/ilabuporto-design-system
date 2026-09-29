@@ -23,6 +23,17 @@ const labelStyles = {
   warning: 'text-yellow-600 dark:text-yellow-400',
 }
 
+// WCAG 1.4.1 Use of Colour. The variant previously changed only the text colour, so
+// "error" and "success" were indistinguishable without colour vision -- and in forced
+// colours mode or for a colour-blind operator the status vanished entirely. On a
+// maturity dashboard a red value means a failed requirement, so this is a status
+// signal, not decoration.
+const statusText: Record<string, string> = {
+  success: 'Success',
+  error: 'Error',
+  warning: 'Warning',
+}
+
 const cardVariant = {
   default: 'default',
   success: 'success',
@@ -35,6 +46,11 @@ export function StatCard({ label, value, variant = 'default', className }: StatC
     <Card variant={cardVariant[variant]} className={className}>
       <p className={cn('text-sm', labelStyles[variant])}>{label}</p>
       <p className={cn('text-2xl font-bold mt-1', valueStyles[variant])}>{value}</p>
+      {/* Available to a screen reader, invisible on screen: the status is already
+          visible as colour, and repeating it visually would be noise. */}
+      {variant !== 'default' && (
+        <span className="sr-only">{statusText[variant]}</span>
+      )}
     </Card>
   )
 }
