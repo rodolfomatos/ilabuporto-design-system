@@ -41,7 +41,12 @@ export function SlideInPanel({ isOpen, onClose, title, children, className }: Sl
     // never lock a keyboard user inside a panel they cannot leave.
     const panel = panelRef.current
     if (!panel) return
-    const items = Array.from(panel.querySelectorAll<HTMLElement>(FOCUSABLE))
+    // See Modal: the FOCUSABLE selector excludes [disabled]; the layout check that was
+    // here (offsetParent) was removed because jsdom reports it as always null, which
+    // reduced the trap to a single element and made Tab a no-op.
+    const items = Array.from(panel.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
+      (el) => !el.hasAttribute('hidden') && el.getAttribute('aria-hidden') !== 'true',
+    )
     if (items.length === 0) {
       event.preventDefault()
       panel.focus()
@@ -49,13 +54,22 @@ export function SlideInPanel({ isOpen, onClose, title, children, className }: Sl
     }
     const first = items[0]
     const last = items[items.length - 1]
-    if (event.shiftKey && document.activeElement === first) {
+    const current = document.activeElement as HTMLElement | null
+
+    // Derived from the focused element, not by comparing it to first/last: the earlier
+    // version assumed activeElement would be exactly `last` when Tab fired, and when it
+    // was not the trap let focus escape and Tab appeared to do nothing.
+    const index = current ? items.indexOf(current) : -1
+    if (index === -1) {
       event.preventDefault()
-      last.focus()
-    } else if (!event.shiftKey && document.activeElement === last) {
-      event.preventDefault()
-      first.focus()
+      ;(event.shiftKey ? last : first).focus()
+      return
     }
+    const nextIndex = event.shiftKey
+      ? (index - 1 + items.length) % items.length
+      : (index + 1) % items.length
+    event.preventDefault()
+    items[nextIndex].focus()
   }
 
   if (!isOpen) return null

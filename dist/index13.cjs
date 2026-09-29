@@ -30,7 +30,9 @@ function SlideInPanel({ isOpen, onClose, title, children, className }) {
     if (event.key !== "Tab") return;
     const panel = panelRef.current;
     if (!panel) return;
-    const items = Array.from(panel.querySelectorAll(FOCUSABLE));
+    const items = Array.from(panel.querySelectorAll(FOCUSABLE)).filter(
+      (el) => !el.hasAttribute("hidden") && el.getAttribute("aria-hidden") !== "true"
+    );
     if (items.length === 0) {
       event.preventDefault();
       panel.focus();
@@ -38,13 +40,16 @@ function SlideInPanel({ isOpen, onClose, title, children, className }) {
     }
     const first = items[0];
     const last = items[items.length - 1];
-    if (event.shiftKey && document.activeElement === first) {
+    const current = document.activeElement;
+    const index = current ? items.indexOf(current) : -1;
+    if (index === -1) {
       event.preventDefault();
-      last.focus();
-    } else if (!event.shiftKey && document.activeElement === last) {
-      event.preventDefault();
-      first.focus();
+      (event.shiftKey ? last : first).focus();
+      return;
     }
+    const nextIndex = event.shiftKey ? (index - 1 + items.length) % items.length : (index + 1) % items.length;
+    event.preventDefault();
+    items[nextIndex].focus();
   };
   if (!isOpen) return null;
   return /* @__PURE__ */ jsxRuntime.jsx("div", { className: "fixed inset-0 bg-black/50 z-40", onClick: onClose, children: /* @__PURE__ */ jsxRuntime.jsxs(

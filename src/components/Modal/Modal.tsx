@@ -7,12 +7,27 @@ interface ModalProps {
   title?: string
   children: React.ReactNode
   className?: string
+  /** id of the element describing the dialog, for aria-describedby. */
+  describedById?: string
+  /**
+   * id of the element to focus on open. Defaults to the first focusable descendant.
+   * A confirmation dialog must focus its safe action, not its close button.
+   */
+  initialFocusId?: string
 }
 
 const FOCUSABLE =
   'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])'
 
-export function Modal({ isOpen, onClose, title, children, className }: ModalProps) {
+export function Modal({
+  isOpen,
+  onClose,
+  title,
+  children,
+  className,
+  describedById,
+  initialFocusId,
+}: ModalProps) {
   const [visible, setVisible] = useState(false)
   const panelRef = useRef<HTMLDivElement>(null)
   const restoreFocusTo = useRef<HTMLElement | null>(null)
@@ -42,7 +57,12 @@ export function Modal({ isOpen, onClose, title, children, className }: ModalProp
     if (!visible) return
 
     restoreFocusTo.current = document.activeElement as HTMLElement | null
-    const first = panelRef.current?.querySelector<HTMLElement>(FOCUSABLE)
+    // autoFocus is not reliable here: the panel is mounted by a rAF, and the effect
+    // below runs afterwards and would override it. The caller names the target instead.
+    const preferred = initialFocusId
+      ? panelRef.current?.querySelector<HTMLElement>(`#${CSS.escape(initialFocusId)}`)
+      : null
+    const first = preferred ?? panelRef.current?.querySelector<HTMLElement>(FOCUSABLE)
     ;(first ?? panelRef.current)?.focus()
 
     return () => {
@@ -50,7 +70,7 @@ export function Modal({ isOpen, onClose, title, children, className }: ModalProp
       // back at the top of the document.
       restoreFocusTo.current?.focus?.()
     }
-  }, [visible])
+  }, [visible, initialFocusId])
 
   const onKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -65,8 +85,13 @@ export function Modal({ isOpen, onClose, title, children, className }: ModalProp
       // so it can never trap a user inside a dialog they cannot leave.
       const panel = panelRef.current
       if (!panel) return
+      // The FOCUSABLE selector already excludes [disabled] and [tabindex="-1"].
+      // A layout check (offsetParent / getClientRects) was tried here and removed:
+      // jsdom has no layout engine, so offsetParent is always null and the filter
+      // silently reduced to a single element, making Tab a no-op. A trap whose
+      // behaviour depends on layout is a trap that cannot be tested.
       const items = Array.from(panel.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
-        (el) => el.offsetParent !== null || el === document.activeElement,
+        (el) => !el.hasAttribute('hidden') && el.getAttribute('aria-hidden') !== 'true',
       )
       if (items.length === 0) {
         event.preventDefault()
@@ -75,13 +100,25 @@ export function Modal({ isOpen, onClose, title, children, className }: ModalProp
       }
       const first = items[0]
       const last = items[items.length - 1]
-      if (event.shiftKey && document.activeElement === first) {
+      const current = document.activeElement as HTMLElement | null
+
+      // Position is derived from the FOCUSED element rather than by comparing it to
+      // first/last. The earlier version assumed activeElement would be exactly `last`
+      // when Tab fired. It is not always -- and when it was not, the trap let focus
+      // escape the dialog, the browser wrapped back to the start, and Tab appeared to
+      // do nothing at all.
+      const index = current ? items.indexOf(current) : -1
+      if (index === -1) {
+        // Focus is outside the item set (or on the panel): pull it back in.
         event.preventDefault()
-        last.focus()
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault()
-        first.focus()
+        ;(event.shiftKey ? last : first).focus()
+        return
       }
+      const nextIndex = event.shiftKey
+        ? (index - 1 + items.length) % items.length
+        : (index + 1) % items.length
+      event.preventDefault()
+      items[nextIndex].focus()
     },
     [onClose],
   )
@@ -97,6 +134,7 @@ export function Modal({ isOpen, onClose, title, children, className }: ModalProp
           role="dialog"
           aria-modal="true"
           aria-labelledby={title ? titleId : undefined}
+          aria-describedby={describedById}
           tabIndex={-1}
           onKeyDown={onKeyDown}
           className={cn(
@@ -104,11 +142,26 @@ export function Modal({ isOpen, onClose, title, children, className }: ModalProp
             className
           )}
         >
-          {title && (
-            <h3 id={titleId} className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
-              {title}
-            </h3>
-          )}
+          <div className="flex items-start justify-between gap-4">
+            {title && (
+              <h3 id={titleId} className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
+                {title}
+              </h3>
+            )}
+            {/* A visible close control. Before this the only ways out were Escape and a
+                backdrop click, so a user who did not know the convention had no visible
+                exit at all. */}
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label="Close dialog"
+              className="p-1 -mt-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 hover:text-gray-700 dark:hover:text-gray-200"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
           {children}
         </div>
       </div>
