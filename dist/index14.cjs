@@ -61,7 +61,7 @@ function Table({
         {
           className: cn.cn(
             "hover:bg-gray-50 dark:hover:bg-gray-800/50",
-            onRowClick && "cursor-pointer"
+            onRowClick && "cursor-pointer relative"
           ),
           children: columns.map((col, colIdx) => /* @__PURE__ */ jsxRuntime.jsxs("td", { className: cn.cn("px-4 py-3 text-sm", col.className), children: [
             col.render ? col.render(item) : /* @__PURE__ */ jsxRuntime.jsx("span", { children: String(row[col.key] ?? "-") }),
@@ -71,7 +71,8 @@ function Table({
                 type: "button",
                 onClick: () => onRowClick(item),
                 "aria-label": col.rowActionLabel ?? `View details for ${firstText}`,
-                className: "absolute inset-0 h-full w-full cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                className: "absolute inset-0 h-full w-full cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600",
+                style: { background: "transparent" }
               }
             )
           ] }, col.key))

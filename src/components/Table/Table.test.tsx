@@ -141,3 +141,32 @@ describe('Table — naming and empty state', () => {
     expect(screen.getByText('-')).toBeInTheDocument()
   })
 })
+
+/**
+ * Regression guard for a defect the suite could not catch.
+ *
+ * The row-action overlay was `absolute inset-0` inside a <td> whose ancestors were
+ * all unpositioned, so its containing block resolved to the VIEWPORT: one button
+ * covered the entire page and swallowed every click on it.
+ *
+ * jsdom has no layout engine, so no amount of testing in jsdom can catch a
+ * containing-block mistake. The guard is therefore static -- it asserts the
+ * positioning context exists in the class list -- and the real verification is a
+ * visual check in a browser, which is recorded as outstanding in T029.
+ */
+describe('Table — row overlay is contained by its row', () => {
+  it('establishes a positioning context on the row', () => {
+    render(<Table columns={columns} data={data} onRowClick={vi.fn()} />)
+    const row = screen.getAllByRole('row')[1]
+    // Without `relative` on the <tr>, `absolute inset-0` resolves against the
+    // viewport and the overlay covers the whole page.
+    expect(row.className).toMatch(/relative/)
+  })
+
+  it('places the overlay inside the row, not outside it', () => {
+    render(<Table columns={columns} data={data} onRowClick={vi.fn()} />)
+    const row = screen.getAllByRole('row')[1]
+    const overlay = within(row).getAllByRole('button')[0]
+    expect(row).toContainElement(overlay)
+  })
+})

@@ -104,7 +104,7 @@ export function Table<T>({
                   key={(row.id as string) || idx}
                   className={cn(
                     'hover:bg-gray-50 dark:hover:bg-gray-800/50',
-                    onRowClick && 'cursor-pointer'
+                    onRowClick && 'cursor-pointer relative'
                   )}
                 >
                   {columns.map((col, colIdx) => (
@@ -126,6 +126,7 @@ export function Table<T>({
                             `View details for ${firstText}`
                           }
                           className="absolute inset-0 h-full w-full cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                          style={{ background: 'transparent' }}
                         />
                       )}
                     </td>
