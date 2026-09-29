@@ -1,4 +1,5 @@
 import { cn } from '../../cn'
+import { useId } from 'react'
 
 interface ToggleProps {
   enabled: boolean
@@ -8,12 +9,18 @@ interface ToggleProps {
 }
 
 export function Toggle({ enabled, onChange, label, disabled }: ToggleProps) {
+  const labelId = useId()
+
   return (
     <div className="flex items-center gap-3">
       <button
         type="button"
         role="switch"
         aria-checked={enabled}
+        // The label was a sibling <span>, unassociated, so the switch was announced as
+        // "switch, off" with no indication of what it controlled (WCAG 4.1.2).
+        // It is now the accessible name via aria-labelledby.
+        aria-labelledby={label ? labelId : undefined}
         disabled={disabled}
         onClick={() => onChange(!enabled)}
         className={cn(
@@ -22,7 +29,9 @@ export function Toggle({ enabled, onChange, label, disabled }: ToggleProps) {
           disabled && 'opacity-50 cursor-not-allowed'
         )}
       >
+        {/* Decorative knob: without aria-hidden it can leak into the accessible name. */}
         <span
+          aria-hidden="true"
           className={cn(
             'inline-block h-4 w-4 transform rounded-full bg-white transition-transform mt-1',
             enabled ? 'translate-x-6' : 'translate-x-1'
@@ -30,7 +39,9 @@ export function Toggle({ enabled, onChange, label, disabled }: ToggleProps) {
         />
       </button>
       {label && (
-        <span className="text-sm text-gray-700 dark:text-gray-300">{label}</span>
+        <span id={labelId} className="text-sm text-gray-700 dark:text-gray-300">
+          {label}
+        </span>
       )}
     </div>
   )
