@@ -1,19 +1,85 @@
 import { jsx, jsxs } from "react/jsx-runtime";
 import { cn } from "./index30.js";
+import { useRef, useId, useEffect } from "react";
+const FOCUSABLE = 'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
 function SlideInPanel({ isOpen, onClose, title, children, className }) {
+  const panelRef = useRef(null);
+  const restoreFocusTo = useRef(null);
+  const titleId = useId();
+  useEffect(() => {
+    var _a, _b;
+    if (!isOpen) return;
+    document.body.style.overflow = "hidden";
+    restoreFocusTo.current = document.activeElement;
+    const first = (_a = panelRef.current) == null ? void 0 : _a.querySelector(FOCUSABLE);
+    (_b = first ?? panelRef.current) == null ? void 0 : _b.focus();
+    return () => {
+      var _a2, _b2;
+      document.body.style.overflow = "";
+      (_b2 = (_a2 = restoreFocusTo.current) == null ? void 0 : _a2.focus) == null ? void 0 : _b2.call(_a2);
+    };
+  }, [isOpen]);
+  const onKeyDown = (event) => {
+    if (event.key === "Escape") {
+      event.stopPropagation();
+      onClose();
+      return;
+    }
+    if (event.key !== "Tab") return;
+    const panel = panelRef.current;
+    if (!panel) return;
+    const items = Array.from(panel.querySelectorAll(FOCUSABLE));
+    if (items.length === 0) {
+      event.preventDefault();
+      panel.focus();
+      return;
+    }
+    const first = items[0];
+    const last = items[items.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  };
   if (!isOpen) return null;
   return /* @__PURE__ */ jsx("div", { className: "fixed inset-0 bg-black/50 z-40", onClick: onClose, children: /* @__PURE__ */ jsxs(
     "div",
     {
+      ref: panelRef,
+      role: "dialog",
+      "aria-modal": "true",
+      "aria-labelledby": title ? titleId : void 0,
+      tabIndex: -1,
+      onKeyDown,
       className: cn(
         "absolute right-0 top-0 h-full w-full max-w-lg bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-800 overflow-y-auto",
         className
       ),
       onClick: (e) => e.stopPropagation(),
       children: [
-        title && /* @__PURE__ */ jsxs("div", { className: "sticky top-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-6 py-4 flex items-center justify-between z-10", children: [
-          /* @__PURE__ */ jsx("h2", { className: "text-lg font-semibold text-gray-900 dark:text-gray-100", children: title }),
-          /* @__PURE__ */ jsx("button", { onClick: onClose, className: "p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800", children: /* @__PURE__ */ jsx("svg", { className: "w-5 h-5", fill: "none", stroke: "currentColor", viewBox: "0 0 24 24", children: /* @__PURE__ */ jsx("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M6 18L18 6M6 6l12 12" }) }) })
+        /* @__PURE__ */ jsxs("div", { className: "sticky top-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-6 py-4 flex items-center justify-between z-10", children: [
+          title && /* @__PURE__ */ jsx("h2", { id: titleId, className: "text-lg font-semibold text-gray-900 dark:text-gray-100", children: title }),
+          /* @__PURE__ */ jsx(
+            "button",
+            {
+              type: "button",
+              onClick: onClose,
+              "aria-label": "Close panel",
+              className: "p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800",
+              children: /* @__PURE__ */ jsx("svg", { className: "w-5 h-5", fill: "none", stroke: "currentColor", viewBox: "0 0 24 24", "aria-hidden": "true", children: /* @__PURE__ */ jsx(
+                "path",
+                {
+                  strokeLinecap: "round",
+                  strokeLinejoin: "round",
+                  strokeWidth: 2,
+                  d: "M6 18L18 6M6 6l12 12"
+                }
+              ) })
+            }
+          )
         ] }),
         /* @__PURE__ */ jsx("div", { className: "p-6", children })
       ]
