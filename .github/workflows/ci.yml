@@ -1,0 +1,43 @@
+name: CI
+
+# The accessibility contract tests only matter if something enforces them. 64 tests
+# that run when someone remembers are worth far less than 64 tests that fail a PR.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# A new push supersedes the previous run for the same ref.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # `npm ci` rather than `npm install`: it installs exactly the lockfile, so a
+      # drifted lockfile fails loudly instead of silently resolving to something else.
+      - run: npm ci
+
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npx vitest run --reporter=dot
+      - run: npm run build
+
+      # The build must not ship test code to consumers.
+      - name: Verify the bundle is not polluted with test code
+        run: |
+          if grep -rlE 'vitest|testing-library|jsdom' dist/*.js dist/*.cjs 2>/dev/null; then
+            echo "::error::test code found in the published bundle"
+            exit 1
+          fi
+          echo "bundle clean: $(find dist -type f | wc -l) files"

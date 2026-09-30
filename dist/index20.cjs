@@ -15,6 +15,11 @@ const labelStyles = {
   error: "text-red-600 dark:text-red-400",
   warning: "text-yellow-600 dark:text-yellow-400"
 };
+const statusText = {
+  success: "Success",
+  error: "Error",
+  warning: "Warning"
+};
 const cardVariant = {
   default: "default",
   success: "success",
@@ -24,7 +29,8 @@ const cardVariant = {
 function StatCard({ label, value, variant = "default", className }) {
   return /* @__PURE__ */ jsxRuntime.jsxs(Card.Card, { variant: cardVariant[variant], className, children: [
     /* @__PURE__ */ jsxRuntime.jsx("p", { className: cn.cn("text-sm", labelStyles[variant]), children: label }),
-    /* @__PURE__ */ jsxRuntime.jsx("p", { className: cn.cn("text-2xl font-bold mt-1", valueStyles[variant]), children: value })
+    /* @__PURE__ */ jsxRuntime.jsx("p", { className: cn.cn("text-2xl font-bold mt-1", valueStyles[variant]), children: value }),
+    variant !== "default" && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "sr-only", children: statusText[variant] })
   ] });
 }
 exports.StatCard = StatCard;

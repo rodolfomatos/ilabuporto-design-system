@@ -21,6 +21,7 @@ const Button = react.forwardRef(
       {
         ref,
         disabled: disabled || loading,
+        "aria-busy": loading || void 0,
         className: cn.cn(
           "inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-900",
           variantStyles[variant],
@@ -29,7 +30,9 @@ const Button = react.forwardRef(
         ),
         ...props,
         children: [
-          loading && /* @__PURE__ */ jsxRuntime.jsxs("svg", { className: "animate-spin h-4 w-4", fill: "none", viewBox: "0 0 24 24", children: [
+          loading && // Decorative: the state is already conveyed by aria-busy and the label.
+          // Without aria-hidden the spinner leaks into the accessible name.
+          /* @__PURE__ */ jsxRuntime.jsxs("svg", { className: "animate-spin h-4 w-4", fill: "none", viewBox: "0 0 24 24", "aria-hidden": "true", children: [
             /* @__PURE__ */ jsxRuntime.jsx("circle", { className: "opacity-25", cx: "12", cy: "12", r: "10", stroke: "currentColor", strokeWidth: "4" }),
             /* @__PURE__ */ jsxRuntime.jsx("path", { className: "opacity-75", fill: "currentColor", d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" })
           ] }),

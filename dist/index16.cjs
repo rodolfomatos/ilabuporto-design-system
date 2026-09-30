@@ -2,7 +2,9 @@
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 const jsxRuntime = require("react/jsx-runtime");
 const cn = require("./index30.cjs");
+const react = require("react");
 function Toggle({ enabled, onChange, label, disabled }) {
+  const labelId = react.useId();
   return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center gap-3", children: [
     /* @__PURE__ */ jsxRuntime.jsx(
       "button",
@@ -10,6 +12,7 @@ function Toggle({ enabled, onChange, label, disabled }) {
         type: "button",
         role: "switch",
         "aria-checked": enabled,
+        "aria-labelledby": label ? labelId : void 0,
         disabled,
         onClick: () => onChange(!enabled),
         className: cn.cn(
@@ -20,6 +23,7 @@ function Toggle({ enabled, onChange, label, disabled }) {
         children: /* @__PURE__ */ jsxRuntime.jsx(
           "span",
           {
+            "aria-hidden": "true",
             className: cn.cn(
               "inline-block h-4 w-4 transform rounded-full bg-white transition-transform mt-1",
               enabled ? "translate-x-6" : "translate-x-1"
@@ -28,7 +32,7 @@ function Toggle({ enabled, onChange, label, disabled }) {
         )
       }
     ),
-    label && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "text-sm text-gray-700 dark:text-gray-300", children: label })
+    label && /* @__PURE__ */ jsxRuntime.jsx("span", { id: labelId, className: "text-sm text-gray-700 dark:text-gray-300", children: label })
   ] });
 }
 exports.Toggle = Toggle;

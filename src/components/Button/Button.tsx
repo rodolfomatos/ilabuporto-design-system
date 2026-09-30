@@ -33,6 +33,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         disabled={disabled || loading}
+        // WCAG 4.1.3: "Submitting" is a status message. Without aria-busy a
+        // screen-reader user was told nothing, so a temporarily disabled button
+        // just looked broken.
+        aria-busy={loading || undefined}
         className={cn(
           'inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-900',
           variantStyles[variant],
@@ -42,7 +46,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {loading && (
-          <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+          // Decorative: the state is already conveyed by aria-busy and the label.
+          // Without aria-hidden the spinner leaks into the accessible name.
+          <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24" aria-hidden="true">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
           </svg>
