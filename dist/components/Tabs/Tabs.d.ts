@@ -1,6 +1,8 @@
 interface Tab {
     key: string;
     label: string;
+    /** Optional id of the tabpanel this tab controls. */
+    panelId?: string;
 }
 interface TabsProps {
     tabs: Tab[];
