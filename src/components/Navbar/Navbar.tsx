@@ -1,6 +1,17 @@
-import { ReactNode, ButtonHTMLAttributes } from 'react'
+import { ReactNode, ButtonHTMLAttributes, CSSProperties } from 'react'
 import { cn } from '../../cn'
 import { LOGO_UP_DIGITAL } from '../../assets'
+
+/**
+ * A cor de fundo de light vai por variável CSS, não por `style={{
+ * backgroundColor }}`. Um style inline ganha a QUALQUER classe, portanto com a
+ * cor em `background-color` a variante `dark:` do Tailwind ficava inerte: a
+ * navbar continuava azul-escura em dark mode. Numa variável, a
+ * `dark:bg-gray-950` (a mesma classe do Footer) passa a ganhar por
+ * especificidade e a navbar herda o fundo do rodapé em dark.
+ */
+const NAV_BG_VAR = '--gs-nav-bg' as const
+const NAV_DARK_BG_VAR = '--gs-nav-dark-bg' as const
 
 export interface NavbarLink {
   key: string
@@ -13,7 +24,13 @@ export interface NavbarLink {
 export interface NavbarProps {
   title?: ReactNode
   logo?: ReactNode
+  /** Fundo em light mode. Default: a brand #009FDF. */
   backgroundColor?: string
+  /**
+   * Fundo em dark mode. Default: o mesmo fundo do `Footer` (`dark:bg-gray-950`,
+   * #030712). Só de dar valor a isto é que o footer deixa de ser a referência.
+   */
+  darkBackgroundColor?: string
   children?: ReactNode
   className?: string
 }
@@ -22,15 +39,25 @@ export function Navbar({
   title,
   logo,
   backgroundColor = '#009FDF',
+  darkBackgroundColor,
   children,
   className,
 }: NavbarProps) {
   return (
     <nav
-      className={cn('sticky top-0 z-50 shadow text-white', className)}
-      style={{ backgroundColor }}
+      className={cn(
+        'sticky top-0 z-50 shadow text-white bg-[var(--gs-nav-bg)]',
+        darkBackgroundColor ? 'dark:bg-[var(--gs-nav-dark-bg)]' : 'dark:bg-gray-950',
+        className,
+      )}
+      style={
+        {
+          [NAV_BG_VAR]: backgroundColor,
+          [NAV_DARK_BG_VAR]: darkBackgroundColor,
+        } as CSSProperties
+      }
     >
-      <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
+      <div className="px-2 sm:px-4 lg:px-6">
         <div className="flex justify-between items-center h-14 sm:h-16">
           <a href="/" className="flex items-center min-w-0">
             {logo ?? <img src={LOGO_UP_DIGITAL} alt="UPdigital" className="h-5 w-auto sm:h-7 brightness-0 invert" width={120} height={30} />}

@@ -3,19 +3,29 @@ Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 const jsxRuntime = require("react/jsx-runtime");
 const cn = require("./index30.cjs");
 const index = require("./index5.cjs");
+const NAV_BG_VAR = "--gs-nav-bg";
+const NAV_DARK_BG_VAR = "--gs-nav-dark-bg";
 function Navbar({
   title,
   logo,
   backgroundColor = "#009FDF",
+  darkBackgroundColor,
   children,
   className
 }) {
   return /* @__PURE__ */ jsxRuntime.jsx(
     "nav",
     {
-      className: cn.cn("sticky top-0 z-50 shadow text-white", className),
-      style: { backgroundColor },
-      children: /* @__PURE__ */ jsxRuntime.jsx("div", { className: "max-w-7xl mx-auto px-2 sm:px-4 lg:px-6", children: /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex justify-between items-center h-14 sm:h-16", children: [
+      className: cn.cn(
+        "sticky top-0 z-50 shadow text-white bg-[var(--gs-nav-bg)]",
+        darkBackgroundColor ? "dark:bg-[var(--gs-nav-dark-bg)]" : "dark:bg-gray-950",
+        className
+      ),
+      style: {
+        [NAV_BG_VAR]: backgroundColor,
+        [NAV_DARK_BG_VAR]: darkBackgroundColor
+      },
+      children: /* @__PURE__ */ jsxRuntime.jsx("div", { className: "px-2 sm:px-4 lg:px-6", children: /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex justify-between items-center h-14 sm:h-16", children: [
         /* @__PURE__ */ jsxRuntime.jsxs("a", { href: "/", className: "flex items-center min-w-0", children: [
           logo ?? /* @__PURE__ */ jsxRuntime.jsx("img", { src: index.LOGO_UP_DIGITAL, alt: "UPdigital", className: "h-5 w-auto sm:h-7 brightness-0 invert", width: 120, height: 30 }),
           title && /* @__PURE__ */ jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [

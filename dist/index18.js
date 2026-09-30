@@ -10,7 +10,7 @@ function Footer({ logo, columns, copyright, className }) {
         "bg-black dark:bg-gray-950 border-t border-white/10 dark:border-gray-800 text-white dark:text-gray-300",
         className
       ),
-      children: /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 py-10 sm:py-14", children: /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10", children: [
+      children: /* @__PURE__ */ jsx("div", { className: "px-2 sm:px-4 lg:px-6 py-10 sm:py-14", children: /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10", children: [
         /* @__PURE__ */ jsxs("div", { className: "sm:col-span-2 lg:col-span-1", children: [
           logo ?? /* @__PURE__ */ jsx("img", { src: LOGO_UP_DIGITAL, alt: "UPdigital", className: "h-8 w-auto mb-4 brightness-0 invert", width: 601, height: 115 }),
           /* @__PURE__ */ jsx("p", { className: "text-sm leading-relaxed text-white/70 dark:text-gray-400", children: copyright ?? /* @__PURE__ */ jsxs(Fragment, { children: [

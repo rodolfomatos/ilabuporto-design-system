@@ -9,11 +9,17 @@ export interface NavbarLink {
 export interface NavbarProps {
     title?: ReactNode;
     logo?: ReactNode;
+    /** Fundo em light mode. Default: a brand #009FDF. */
     backgroundColor?: string;
+    /**
+     * Fundo em dark mode. Default: o mesmo fundo do `Footer` (`dark:bg-gray-950`,
+     * #030712). Só de dar valor a isto é que o footer deixa de ser a referência.
+     */
+    darkBackgroundColor?: string;
     children?: ReactNode;
     className?: string;
 }
-export declare function Navbar({ title, logo, backgroundColor, children, className, }: NavbarProps): import("react").JSX.Element;
+export declare function Navbar({ title, logo, backgroundColor, darkBackgroundColor, children, className, }: NavbarProps): import("react").JSX.Element;
 export interface LanguageToggleProps {
     current: string;
     options: {
