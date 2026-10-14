@@ -33,6 +33,24 @@ module.exports = {
 }
 ```
 
+## Design Tokens
+
+The full token reference lives in [DESIGN.md](./DESIGN.md). Colour tokens are
+exported as `colors`:
+
+```tsx
+import { colors } from '@ilabuporto/design-system'
+```
+
+- `brand` (`#009FDF`) — the **U.Porto institutional blue**. Use it for
+  institutional actions and primary emphasis.
+- `accent` (`#22c55e`) — a **generic, optional** green. It is **not part of the
+  U.Porto institutional palette** and is not consumed by any component in this
+  library. Use it only where a neutral positive accent is genuinely needed; if
+  you are styling an institutional action, use `brand`, not `accent`.
+- `destructive` (`#ef4444`), `warning` (`#eab308`), `info` (`#3b82f6`) — semantic
+  status colours.
+
 ## Components
 
 | Component | Description |
