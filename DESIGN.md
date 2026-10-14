@@ -179,6 +179,7 @@ dont:
   - Create touch targets smaller than 44x44px
   - Ignore dark mode contrast requirements
   - Use non-semantic divs when semantic elements exist
+  - Treat the generic `accent` token (#22c55e) as the U.Porto institutional colour — that is `brand` (#009FDF)
 breakingChanges:
   - none: first release
 ---
